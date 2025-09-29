@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using VehicleChecklist.Domain.Entities;
+﻿using VehicleChecklist.Domain.Entities;
+using VehicleChecklist.Domain.Enums;
 
 namespace VehicleChecklist.Infrastructure.Repositories.Interfaces
 {
@@ -15,5 +10,6 @@ namespace VehicleChecklist.Infrastructure.Repositories.Interfaces
         Task UpdateAsync(Checklist checklist);
         Task SaveChangesAsync();
         Task<Checklist?> GetInProgressByVehicleAsync(Guid vehicleId);
+        Task<List<Checklist>> GetAllAsync(Guid? vehicleId = null, Guid? executorId = null, ChecklistStatus? status = null);
     }
 }

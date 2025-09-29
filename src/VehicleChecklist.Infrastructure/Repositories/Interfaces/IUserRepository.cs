@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using VehicleChecklist.Domain.Entities;
+﻿using VehicleChecklist.Domain.Entities;
 
 namespace VehicleChecklist.Infrastructure.Repositories.Interfaces
 {

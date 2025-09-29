@@ -1,27 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using VehicleChecklist.Domain.Entities;
-using VehicleChecklist.Domain.Enums;
+using VehicleChecklist.Infrastructure.Repositories.Interfaces;
 
 namespace VehicleChecklist.Api.Controllers
 {
-    public class BaseController : ControllerBase
+    [ApiController]
+    public abstract class BaseController : ControllerBase
     {
-        protected User GetUserFromClaims()
+        private readonly IUserRepository _userRepository;
+        protected BaseController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        /// <summary>
+        /// Obtém o usuário autenticado a partir do token JWT consultando no banco de dados.
+        /// </summary>
+        protected async Task<User> GetUserFromClaimsAsync()
         {
             var idClaim = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            var roleClaim = User.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
-
-            if (string.IsNullOrEmpty(idClaim) || string.IsNullOrEmpty(roleClaim))
+            if (string.IsNullOrEmpty(idClaim))
                 throw new UnauthorizedAccessException("Usuário não autenticado corretamente.");
 
-            return new User
-            {
-                Id = Guid.Parse(idClaim),
-                FullName = User.Identity?.Name ?? "Authenticated User",
-                Email = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value ?? "unknown",
-                Role = Enum.Parse<UserRole>(roleClaim)
-            };
+            var user = await _userRepository.GetByIdAsync(Guid.Parse(idClaim));
+            if (user == null)
+                throw new UnauthorizedAccessException("Usuário não encontrado no banco.");
+
+            return user;
         }
     }
 }

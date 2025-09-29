@@ -12,7 +12,7 @@ namespace VehicleChecklist.Domain.Entities
         public Guid ChecklistId { get; set; }
         public Checklist Checklist { get; set; } = null!;
         public string Name { get; set; } = null!;
-        public bool? IsOk { get; set; }               // null = not inspected yet
+        public bool? IsOk { get; set; }               
         public string? Observation { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

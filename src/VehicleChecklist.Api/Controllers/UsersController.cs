@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleChecklist.Application.DTOs;
-using VehicleChecklist.Application.Services;
-using VehicleChecklist.Domain.Enums;
+using VehicleChecklist.Application.Services.Interfaces;
+using VehicleChecklist.Infrastructure.Repositories.Interfaces;
 
 namespace VehicleChecklist.Api.Controllers
 {
@@ -10,21 +10,30 @@ namespace VehicleChecklist.Api.Controllers
     [Route("api/[controller]")]
     public class UsersController : BaseController
     {
-        private readonly UserService _service;
+        private readonly IUserService _service;
 
-        public UsersController(UserService service)
+        public UsersController(IUserService service, IUserRepository userRepository) : base(userRepository)
         {
             _service = service;
         }
 
+        /// <summary>
+        /// Registra Usuário
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("register")]
-        [Authorize(Roles = "Admin")] // apenas admin pode criar novos usuários
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
+            var admin = await GetUserFromClaimsAsync();
             var user = await _service.RegisterAsync(dto);
             return CreatedAtAction(nameof(GetAll), new { id = user.Id }, user);
         }
 
+        /// <summary>
+        /// Login do Usuário
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
@@ -33,6 +42,10 @@ namespace VehicleChecklist.Api.Controllers
             return Ok(new { Token = token });
         }
 
+        /// <summary>
+        /// Retorna Todos os Usuários
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
@@ -41,8 +54,12 @@ namespace VehicleChecklist.Api.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Criação de usuário Admin para Iniciar o Sistema
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("seed-admin")]
-        [AllowAnonymous] // permite rodar sem autenticação
+        [AllowAnonymous]
         public async Task<IActionResult> SeedAdmin()
         {
             var user = await _service.SeedAdminAsync();

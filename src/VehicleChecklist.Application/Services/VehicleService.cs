@@ -1,10 +1,11 @@
 ﻿using VehicleChecklist.Application.DTOs;
 using VehicleChecklist.Domain.Entities;
 using VehicleChecklist.Infrastructure.Repositories.Interfaces;
+using VehicleChecklist.Application.Services.Interfaces;
 
 namespace VehicleChecklist.Application.Services
 {
-    public class VehicleService
+    public class VehicleService : IVehicleService
     {
         private readonly IVehicleRepository _repo;
 

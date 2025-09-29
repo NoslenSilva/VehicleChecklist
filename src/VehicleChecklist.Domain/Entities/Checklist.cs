@@ -12,14 +12,14 @@ namespace VehicleChecklist.Domain.Entities
         public Guid Id { get; set; }
         public Guid VehicleId { get; set; }
         public Vehicle Vehicle { get; set; } = null!;
-        public Guid StartedById { get; set; }          //Quem Iniciou o Processo
+        public Guid StartedById { get; set; }          
         public User StartedBy { get; set; } = null!;
         public DateTime StartedAt { get; set; }
         public DateTime? FinishedAt { get; set; }
         public ChecklistStatus Status { get; set; } = ChecklistStatus.InProgress;
-        public bool Locked { get; set; } = true;      //Indica que o processo está bloqueado
+        public bool Locked { get; set; } = true;      
         public List<ChecklistItem> Items { get; set; } = new();
-        public Guid? ReviewedById { get; set; }       //Usuário que aprovou/rejeitou
+        public Guid? ReviewedById { get; set; }       
         public User? ReviewedBy { get; set; }
     }
 }

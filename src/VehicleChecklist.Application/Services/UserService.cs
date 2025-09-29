@@ -6,10 +6,11 @@ using VehicleChecklist.Application.DTOs;
 using VehicleChecklist.Domain.Entities;
 using VehicleChecklist.Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
+using VehicleChecklist.Application.Services.Interfaces;
 
 namespace VehicleChecklist.Application.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
         private readonly IConfiguration _config;

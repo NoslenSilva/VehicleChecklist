@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 using VehicleChecklist.Application.Services;
+using VehicleChecklist.Application.Services.Interfaces;
 using VehicleChecklist.Infrastructure.Data;
 using VehicleChecklist.Infrastructure.Repositories;
 using VehicleChecklist.Infrastructure.Repositories.Interfaces;
@@ -13,19 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuration
 var configuration = builder.Configuration;
 
-// Add DbContext (SQL Server)
+// Conexão com Banco de Dados
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-// DI: repositories & services
+//Registro de Repostórios e Serviços
 builder.Services.AddScoped<IChecklistRepository, ChecklistRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
-builder.Services.AddScoped<ChecklistService>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<VehicleService>();
+builder.Services.AddScoped<IChecklistService, ChecklistService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
 
-// Authentication: JWT (simple)
 var jwtSecret = configuration["Jwt:Secret"] ?? "ProjetoCheckList";
 var key = Encoding.ASCII.GetBytes(jwtSecret);
 builder.Services.AddAuthentication(options =>
@@ -55,8 +55,8 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var userService = scope.ServiceProvider.GetRequiredService<UserService>();
-    await userService.SeedAdminAsync(); // cria admin se não existir
+    var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
+    await userService.SeedAdminAsync(); //Criação do Usuário Admin
 }
 
 app.UseSwagger();

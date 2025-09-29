@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using VehicleChecklist.Domain.Entities;
+﻿using VehicleChecklist.Domain.Entities;
 using VehicleChecklist.Domain.Enums;
 using VehicleChecklist.Infrastructure.Repositories.Interfaces;
+using VehicleChecklist.Application.Services.Interfaces;
 
 namespace VehicleChecklist.Application.Services
 {
-    public class ChecklistService
+    public class ChecklistService : IChecklistService
     {
         private readonly IChecklistRepository _repo;
         private readonly IVehicleRepository _vehicleRepo;
@@ -21,7 +16,6 @@ namespace VehicleChecklist.Application.Services
         }
         public async Task<Checklist> StartChecklistAsync(Guid vehicleId, User executor)
         {
-            // check if there's an in-progress for same vehicle
             var existing = await _repo.GetInProgressByVehicleAsync(vehicleId);
             if (existing != null)
                 throw new InvalidOperationException("Já existe um checklist em execução para este veículo.");
@@ -123,6 +117,16 @@ namespace VehicleChecklist.Application.Services
             await _repo.SaveChangesAsync();
 
             return checklist;
+        }
+
+        public async Task<Checklist?> GetByIdAsync(Guid id)
+        {
+            return await _repo.GetByIdAsync(id);
+        }
+
+        public async Task<List<Checklist>> GetAllAsync(Guid? vehicleId = null, Guid? executorId = null, ChecklistStatus? status = null)
+        {
+            return await _repo.GetAllAsync(vehicleId, executorId, status);
         }
     }
 }

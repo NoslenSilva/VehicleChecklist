@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using VehicleChecklist.Domain.Entities;
+using VehicleChecklist.Domain.Enums;
 using VehicleChecklist.Infrastructure.Data;
 
 using VehicleChecklist.Infrastructure.Repositories.Interfaces;
@@ -25,9 +21,10 @@ namespace VehicleChecklist.Infrastructure.Repositories
         public async Task<Checklist?> GetByIdAsync(Guid id)
         {
             return await _db.Checklists
-                .Include(c => c.Items)
                 .Include(c => c.Vehicle)
                 .Include(c => c.StartedBy)
+                .Include(c => c.ReviewedBy)
+                .Include(c => c.Items)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -35,7 +32,11 @@ namespace VehicleChecklist.Infrastructure.Repositories
         {
             return await _db.Checklists
                 .Include(c => c.Items)
-                .FirstOrDefaultAsync(c => c.VehicleId == vehicleId && c.Status == Domain.Enums.ChecklistStatus.InProgress);
+                .Include(c => c.Vehicle)
+                .Include(c => c.StartedBy)
+                .FirstOrDefaultAsync(c =>
+                    c.VehicleId == vehicleId &&
+                    c.Status == Domain.Enums.ChecklistStatus.InProgress);
         }
 
         public async Task UpdateAsync(Checklist checklist)
@@ -46,6 +47,27 @@ namespace VehicleChecklist.Infrastructure.Repositories
         public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<List<Checklist>> GetAllAsync(Guid? vehicleId = null, Guid? executorId = null, ChecklistStatus? status = null)
+        {
+            var query = _db.Checklists
+                .Include(c => c.Vehicle)
+                .Include(c => c.StartedBy)
+                .Include(c => c.ReviewedBy)
+                .Include(c => c.Items)
+                .AsQueryable();
+
+            if (vehicleId.HasValue)
+                query = query.Where(c => c.VehicleId == vehicleId.Value);
+
+            if (executorId.HasValue)
+                query = query.Where(c => c.StartedById == executorId.Value);
+
+            if (status.HasValue)
+                query = query.Where(c => c.Status == status.Value);
+
+            return await query.ToListAsync();
         }
     }
 }
