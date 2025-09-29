@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AA1FBD6E-D4D7-42D8-8F0F-0C9DAACEE909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleChecklist.Api", "src\VehicleChecklist.Api\VehicleChecklist.Api.csproj", "{C06FB7DC-9642-4837-9ECD-4DBA209E1D6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleChecklist.Application", "src\VehicleChecklist.Application\VehicleChecklist.Application.csproj", "{7651C17D-BC80-4C71-ABED-793335CC4601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleChecklist.Domain", "src\VehicleChecklist.Domain\VehicleChecklist.Domain.csproj", "{BD96080D-577C-42B2-B746-6D4520017C0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleChecklist.Infrastructure", "src\VehicleChecklist.Infrastructure\VehicleChecklist.Infrastructure.csproj", "{F2E28AA0-4D96-4F53-8900-7CE398120D65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleChecklist.Tests", "tests\VehicleChecklist.Tests\VehicleChecklist.Tests.csproj", "{3DDDE236-DE10-48FD-B46B-799C41835648}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C06FB7DC-9642-4837-9ECD-4DBA209E1D6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06FB7DC-9642-4837-9ECD-4DBA209E1D6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06FB7DC-9642-4837-9ECD-4DBA209E1D6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06FB7DC-9642-4837-9ECD-4DBA209E1D6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7651C17D-BC80-4C71-ABED-793335CC4601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7651C17D-BC80-4C71-ABED-793335CC4601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7651C17D-BC80-4C71-ABED-793335CC4601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7651C17D-BC80-4C71-ABED-793335CC4601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD96080D-577C-42B2-B746-6D4520017C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD96080D-577C-42B2-B746-6D4520017C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD96080D-577C-42B2-B746-6D4520017C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD96080D-577C-42B2-B746-6D4520017C0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2E28AA0-4D96-4F53-8900-7CE398120D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E28AA0-4D96-4F53-8900-7CE398120D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E28AA0-4D96-4F53-8900-7CE398120D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E28AA0-4D96-4F53-8900-7CE398120D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDDE236-DE10-48FD-B46B-799C41835648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDDE236-DE10-48FD-B46B-799C41835648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDDE236-DE10-48FD-B46B-799C41835648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDDE236-DE10-48FD-B46B-799C41835648}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C06FB7DC-9642-4837-9ECD-4DBA209E1D6D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7651C17D-BC80-4C71-ABED-793335CC4601} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{BD96080D-577C-42B2-B746-6D4520017C0C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F2E28AA0-4D96-4F53-8900-7CE398120D65} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{3DDDE236-DE10-48FD-B46B-799C41835648} = {AA1FBD6E-D4D7-42D8-8F0F-0C9DAACEE909}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E51260D-78B1-40E6-B2EF-1509877D6526}
+	EndGlobalSection
+EndGlobal
